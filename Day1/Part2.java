@@ -6,36 +6,52 @@ class Part2 {
         Scanner s;
 
         try {
-            s = new Scanner(new FileReader("../input/day1testinput.txt"));
+            s = new Scanner(new FileReader("../input/testinp.txt"));
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
 
         int total = 0;
-        String line;
-        
-        String[] digitStrings = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
         while (s.hasNextLine()) {
-            line = s.nextLine();
-            
-            System.out.print(line);
-            for (int i = 0; i < digitStrings.length; i++) {
-                line = line.replaceAll(digitStrings[i], "" + (i + 1));
-            }
-            System.out.print(" " + line);
-
-            line = line.replaceAll("[A-Za-z]+", "");
-            System.out.println(" " + line);
-
-
-            String[] parts = line.split("");
-            
-            line = parts[0] + parts[parts.length - 1];
-            total += Integer.parseInt(line);
+            total += getNumber(s.nextLine());
         }
 
         System.out.println(total);
+    }
+
+    static int getNumber(String input) {
+        String[] digitStrings = {"one", "two", "three", "four", "five", 
+            "six", "seven", "eight", "nine"};
+        int firstDigit = -1;
+        int firstDigitIndex = -1;
+        int lastDigit = -1;
+        int lastDigitIndex = -1;
+        int index;
+
+        String newString = input;
+        
+        for (int i = 0; i < digitStrings.length; i++) {
+            index = input.indexOf(digitStrings[i]); 
+            if (index != -1 && (index < firstDigitIndex || 
+                firstDigitIndex == -1)) {
+
+                firstDigitIndex = index;
+                firstDigit = i;
+            }
+
+            index = input.lastIndexOf("" + (i + 1));
+
+            if (index != -1 && (index > lastDigitIndex || 
+                lastDigitIndex == -1)) {
+
+                lastDigitIndex = index;
+                lastDigit = i;
+            }
+        }
+
+        return Integer.parseInt(("" + (firstDigitIndex + 1)) + 
+            ("" + (lastDigitIndex + 1)));
     }
 }
