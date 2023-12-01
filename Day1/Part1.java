@@ -1,12 +1,12 @@
 import java.util.Scanner;
 import java.io.FileReader;
 
-class Day1 {
+class Part1 {
     public static void main(String[] args) {
         Scanner s;
 
         try {
-            s = new Scanner(new FileReader("input/day1input.txt"));
+            s = new Scanner(new FileReader("../input/day1input.txt"));
         } catch (Exception e) {
             e.printStackTrace();
             return;
