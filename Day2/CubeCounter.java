@@ -62,6 +62,16 @@ class CubeCounter {
         }
     }
 
+    ArrayList<Integer> getRedCubes() {
+        return this.redCubes;
+    }
+    ArrayList<Integer> getBlueCubes() {
+        return this.blueCubes;
+    }
+    ArrayList<Integer> getGreenCubes() {
+        return this.greenCubes;
+    }
+
     private void initCount() {
         this.redCubes.add(0);
         this.greenCubes.add(0);

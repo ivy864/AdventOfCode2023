@@ -23,26 +23,24 @@ class Day2 {
             }
         }
         
-        int possibleGames = 0;
+        int power = 0;
         String line;
         while (s.hasNextLine()) {
             line = s.nextLine();
-
-            CubeCounter counter; 
+            
+            PowerFinder finder; 
 
             try {
-                counter = new CubeCounter(line);
+                finder = new PowerFinder(line);
             }
             catch(Exception e) {
                 e.printStackTrace(); 
                 return;
             }
-             
-            int possible = counter.isGamePossible();
-            System.out.println(possible);
-            possibleGames += possible;
+
+            power += finder.getPower();    
         }
 
-        System.out.println(possibleGames);
+        System.out.println(power);
     }
 }
