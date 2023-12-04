@@ -27,31 +27,42 @@ class Day4 {
 
         String line;
         int totalWon = 0;
+        int totalCards = 0;
         
-        ArrayList<Integer> copies = new ArrayList<Integer>;
-        Hashtable<Integer, Integer> copies = new Hashtable<Integer, Integer>;
+        Hashtable<Integer, Integer> copies = new Hashtable<Integer, Integer>();
 
         while (s.hasNextLine()) {
-            Hashtable<String, Boolean> wining = new Hashtable<String, Boolean>();     
+            line = s.nextLine();
+
+            Hashtable<String, Boolean> winning = new Hashtable<String, Boolean>();     
 
             int points = 0;
             int matches = 0;
-            line = s.nextLine();
+            int multiplier = 1;
+            
 
             String[] half = line.split("\\|");
-            String[] winers = half[0].split(" +");
+            String[] winners = half[0].split(" +");
             System.out.println(line);
-
             String[] parts = half[1].split(" +");
 
-            for (int i = 2; i < winers.length; i++) {
-                wining.put(winers[i], true);
+            int gameNum = Integer.parseInt(winners[1].substring(0, 
+                winners[1].length() - 1));
+
+            if (copies.get(gameNum) != null) {
+                multiplier += copies.get(gameNum);
+            }
+            totalCards += multiplier;
+
+            for (int i = 2; i < winners.length; i++) {
+                winning.put(winners[i], true);
             }
 
             for (int i = 0; i < parts.length; i++) {
-                if (wining.get(parts[i]) != null) {
+                if (winning.get(parts[i]) != null) {
                     System.out.println(parts[i]);
-                    if (points ==0) {
+                    matches += 1;
+                    if (points == 0) {
                         points = 1;
                     }
                     else {
@@ -61,14 +72,22 @@ class Day4 {
             }
 
             for (int i = 0; i < matches; i++) {
-                copies.set(i)
+                int copyGameNum = gameNum + i + 1;
+                if (copies.get(copyGameNum) == null) {
+                    copies.put(copyGameNum, multiplier);
+                }
+                else {
+                    copies.put(copyGameNum, copies.get(copyGameNum) 
+                    + multiplier);
+                }
             }
-            System.out.println(points);
 
+            System.out.println("points: " + points * multiplier);
+            System.out.println("multiplier: " + multiplier);
             totalWon += points * multiplier;
-
         }
 
         System.out.println(totalWon);
+        System.out.println("you had " + totalCards + " cards.");
     }
 }
